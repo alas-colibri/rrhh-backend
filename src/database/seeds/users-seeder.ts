@@ -19,12 +19,8 @@ export class UsersSeeder {
     const users: CreateUserDto[] = [];
     const roles = (await this.rolesService.findAll()).data as RoleEntity[];
     const adminRole = roles.find((role) => role.code === RoleEnum.ADMIN);
-    const humanResourcesRole = roles.find((role) => role.code === RoleEnum.HUMAN_RESORCES);
-    // const coordinatorAdministrativeRole = roles.find(
-    //   (role) => role.code === RoleEnum.COORDINATOR_ADMINISTRATIVE,
-    // );
-    // const coordinatorCareerRole = roles.find(
-    //   (role) => role.code === RoleEnum.COORDINATOR_CAREER,
+    // const humanResourcesRole = roles.find(
+    //   (role) => role.code === RoleEnum.HUMAN_RESORCES,
     // );
 
     users.push(
@@ -43,7 +39,7 @@ export class UsersSeeder {
         name: 'Pepito',
         password: '12345678',
         passwordChanged: false,
-        roles: [humanResourcesRole],
+        roles: [adminRole],
         username: 'humanResources',
       },
     );
