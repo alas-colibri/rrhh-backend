@@ -3,8 +3,8 @@ import { DatabaseModule } from '@database';
 import { MemoryStoredFile, NestjsFormDataModule } from 'nestjs-form-data';
 import { Repository } from 'typeorm';
 import { rrhhProviders } from './providers';
-import { EventsController } from './controllers';
-import { EventsService } from './services';
+import { EventsController, PersonController } from './controllers';
+import { EventsService, PersonService } from './services';
 
 @Global()
 @Module({
@@ -14,13 +14,8 @@ import { EventsService } from './services';
       storage: MemoryStoredFile,
     }),
   ],
-  controllers: [
-    EventsController,
-  ],
-  providers: [
-    ...rrhhProviders,
-    EventsService,
-  ],
+  controllers: [EventsController, PersonController],
+  providers: [...rrhhProviders, EventsService, PersonService],
   exports: [],
 })
 export class RrhhModule {}

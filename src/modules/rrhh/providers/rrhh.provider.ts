@@ -1,12 +1,18 @@
 import { DataSource } from 'typeorm';
 import { DataSourceEnum, RepositoryEnum } from '@shared/enums';
-import { EventEntity } from '../entities';
+import { EventEntity, PersonEntity } from '../entities';
 
 export const rrhhProviders = [
   {
     provide: RepositoryEnum.EVENT_REPOSITORY,
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(EventEntity),
+    inject: [DataSourceEnum.PG_DATA_SOURCE],
+  },
+  {
+    provide: RepositoryEnum.PERSON_REPOSITORY,
+    useFactory: (dataSource: DataSource) =>
+      dataSource.getRepository(PersonEntity),
     inject: [DataSourceEnum.PG_DATA_SOURCE],
   },
 ];
