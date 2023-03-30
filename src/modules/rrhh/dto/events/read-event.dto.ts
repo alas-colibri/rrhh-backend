@@ -6,21 +6,9 @@ export class ReadEventDto extends BaseEventDto {
   @Expose()
   readonly id;
 
-  // @Expose()
-  // readonly catalogue;
-
-  // @Expose()
-  // readonly planning;
+  @Expose()
+  readonly question;
 
   @Expose()
-  readonly startDate;
-
-  @Expose()
-  readonly endDate;
-
-  @Expose()
-  readonly sort;
-
-  @Expose()
-  readonly isEnable;
+  readonly active;
 }

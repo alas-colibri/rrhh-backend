@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
-import { Repository, FindOptionsWhere, LessThan, ILike } from 'typeorm';
+import { Repository, FindOptionsWhere } from 'typeorm';
 import { ServiceResponseHttpModel } from '@shared/models';
 import { RepositoryEnum } from '@shared/enums';
 import { PaginationDto } from '@core/dto';
@@ -49,10 +49,10 @@ export class EventsService {
       return await this.paginateAndFilter(params);
     }
 
-    //Other filters
-    if (params.sort) {
-      return this.filterBySort(params.sort);
-    }
+    // //Other filters
+    // if (params.sort) {
+    //   return this.filterBySort(params.sort);
+    // }
 
     //All
     const response = await this.repository.findAndCount({
@@ -66,21 +66,21 @@ export class EventsService {
     };
   }
 
-  async findByPlanning(
-    planningId: string,
-    params?: FilterEventDto,
-  ): Promise<ServiceResponseHttpModel> {
-    const response = await this.repository.findAndCount({
-      //where:,
-      relations: {},
-      order: { updatedAt: 'DESC' },
-    });
+  // async findByPlanning(
+  //   planningId: string,
+  //   params?: FilterEventDto,
+  // ): Promise<ServiceResponseHttpModel> {
+  //   const response = await this.repository.findAndCount({
+  //     //where:,
+  //     relations: {},
+  //     order: { updatedAt: 'DESC' },
+  //   });
 
-    return {
-      data: plainToInstance(ReadEventDto, response[0]),
-      pagination: { totalItems: response[1], limit: 10 },
-    };
-  }
+  //   return {
+  //     data: plainToInstance(ReadEventDto, response[0]),
+  //     pagination: { totalItems: response[1], limit: 10 },
+  //   };
+  // }
 
   async findOne(id: string): Promise<ServiceResponseHttpModel> {
     const event = await this.repository.findOne({
@@ -157,21 +157,21 @@ export class EventsService {
     };
   }
 
-  private async filterBySort(sort: number): Promise<ServiceResponseHttpModel> {
-    const where: FindOptionsWhere<EventEntity> = {};
+  // private async filterBySort(sort: number): Promise<ServiceResponseHttpModel> {
+  //   const where: FindOptionsWhere<EventEntity> = {};
 
-    if (sort) {
-      where.sort = LessThan(sort);
-    }
+  // if (sort) {
+  //   where.sort = LessThan(sort);
+  // }
 
-    const response = await this.repository.findAndCount({
-      relations: [],
-      where,
-    });
+  //   const response = await this.repository.findAndCount({
+  //     relations: [],
+  //     where,
+  //   });
 
-    return {
-      data: response[0],
-      pagination: { limit: 10, totalItems: response[1] },
-    };
-  }
+  //   return {
+  //     data: response[0],
+  //     pagination: { limit: 10, totalItems: response[1] },
+  //   };
+  // }
 }

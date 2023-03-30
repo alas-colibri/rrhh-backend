@@ -5,9 +5,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
-  ManyToOne,
-  JoinColumn,
-  OneToMany,
 } from 'typeorm';
 @Entity('events', { schema: 'uic' })
 export class EventEntity {
@@ -35,44 +32,16 @@ export class EventEntity {
   })
   deletedAt: Date;
 
-  // Relationships
-
-  // @ManyToOne(() => CatalogueEntity, (catalogue) => catalogue.events)
-  // @JoinColumn({ name: 'catalogue_id' })
-  // catalogue: CatalogueEntity;
-
-  // @ManyToOne(() => PlanningEntity, (planning) => planning.events)
-  // @JoinColumn({ name: 'planning_id' })
-  // planning: PlanningEntity;
-
-  // @OneToMany(
-  //   () => ResponsibleTutorEntity,
-  //   (responsible) => responsible.dateEvent,
-  // )
-  // dateEvents: ResponsibleTutorEntity[];
-
   //Fields
-  @Column('timestamp', {
-    name: 'end_date',
-    comment: 'Fin del evento',
+  @Column('varchar', {
+    name: 'question',
+    comment: 'Es la pregunta para la evaluación de desempeño',
   })
-  endDate: Date;
-
-  @Column('timestamp', {
-    name: 'start_date',
-    comment: 'Inicio del evento',
-  })
-  startDate: Date;
-
-  @Column('numeric', {
-    name: 'sort',
-    comment: 'Orden de las fases',
-  })
-  sort: number;
+  question: string;
 
   @Column('boolean', {
-    name: 'is_enable',
-    comment: 'True= visible, False= no visible ',
+    name: 'active',
+    comment: 'True= activa, False= inactiva ',
   })
-  isEnable: boolean;
+  active: boolean;
 }
