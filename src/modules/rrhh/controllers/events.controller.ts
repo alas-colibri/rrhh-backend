@@ -34,7 +34,7 @@ export class EventsController {
 
     return {
       data: serviceResponse.data,
-      message: 'Evento creado',
+      message: 'Pregunta creada',
       title: 'Creado',
     };
   }
@@ -109,7 +109,7 @@ export class EventsController {
 
     return {
       data: serviceResponse.data,
-      message: `Evento actualizado ${id}`,
+      message: `Pregunta actualizada ${id}`,
       title: `Actualizado`,
     };
   }
@@ -125,7 +125,7 @@ export class EventsController {
 
     return {
       data: serviceResponse.data,
-      message: `Evento eliminado ${id}`,
+      message: `Pregunta eliminada ${id}`,
       title: `Eliminado`,
     };
   }
@@ -139,7 +139,7 @@ export class EventsController {
 
     return {
       data: serviceResponse.data,
-      message: `Eventos eliminados`,
+      message: `Preguntas eliminadas`,
       title: `Eliminado`,
     };
   }

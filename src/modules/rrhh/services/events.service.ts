@@ -89,7 +89,7 @@ export class EventsService {
     });
 
     if (!event) {
-      throw new NotFoundException('event not found');
+      throw new NotFoundException('La pregunta no funciona');
     }
 
     return { data: plainToInstance(ReadEventDto, event) };
@@ -102,7 +102,7 @@ export class EventsService {
     const event = await this.repository.preload({ id, ...payload });
 
     if (!event) {
-      throw new NotFoundException('Event not found');
+      throw new NotFoundException('La pregunta no funciona');
     }
 
     const eventUpdated = await this.repository.save(event);
@@ -114,7 +114,7 @@ export class EventsService {
     const event = await this.repository.findOneBy({ id });
 
     if (!event) {
-      throw new NotFoundException('Event not found');
+      throw new NotFoundException('La pregunta no funciona');
     }
 
     const eventDeleted = await this.repository.softRemove(event);
