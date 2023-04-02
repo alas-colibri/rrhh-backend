@@ -60,21 +60,21 @@ export class ProyectService {
     };
   }
 
-  async findByPlanning(
-    planningId: string,
-    params?: FilterProyectDto,
-  ): Promise<ServiceResponseHttpModel> {
-    const response = await this.repository.findAndCount({
-      //where:,
-      relations: {},
-      order: { updatedAt: 'DESC' },
-    });
+  // async findByPlanning(
+  //   planningId: string,
+  //   params?: FilterProyectDto,
+  // ): Promise<ServiceResponseHttpModel> {
+  //   const response = await this.repository.findAndCount({
+  //     //where:,
+  //     relations: {},
+  //     order: { updatedAt: 'DESC' },
+  //   });
 
-    return {
-      data: plainToInstance(ReadProyectDto, response[0]),
-      pagination: { totalItems: response[1], limit: 10 },
-    };
-  }
+  //   return {
+  //     data: plainToInstance(ReadProyectDto, response[0]),
+  //     pagination: { totalItems: response[1], limit: 10 },
+  //   };
+  // }
 
   async findOne(id: string): Promise<ServiceResponseHttpModel> {
     const proyect = await this.repository.findOne({
@@ -124,8 +124,9 @@ export class ProyectService {
   private async paginateAndFilter(
     params: FilterProyectDto,
   ): Promise<ServiceResponseHttpModel> {
-    // eslint-disable-next-line prettier/prettier
-    let where: FindOptionsWhere<ProyectEntity> | FindOptionsWhere<ProyectEntity>[];
+    let where:
+      | FindOptionsWhere<ProyectEntity>
+      | FindOptionsWhere<ProyectEntity>[];
     where = {};
     let { page, search } = params;
     const { limit } = params;
