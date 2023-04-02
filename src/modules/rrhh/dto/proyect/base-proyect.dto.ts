@@ -23,16 +23,12 @@ export class BaseProyectDto {
   readonly isEnable: boolean;
 
   @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsNumber()
-  readonly cedula: number;
+  @IsString()
+  readonly nameProyect: string;
 
   @IsNotEmpty(isNotEmptyValidationOptions())
   @IsString()
-  readonly nameTrabajador: string;
-
-  @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsString()
-  readonly proyectAsignado: string;
+  readonly descripcionProyect: string;
 
   @IsNotEmpty(isNotEmptyValidationOptions())
   @IsString()

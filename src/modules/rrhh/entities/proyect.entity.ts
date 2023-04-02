@@ -64,24 +64,21 @@ export class ProyectEntity {
   })
   startDate: Date;
 
-  @Column('number', {
-    name: 'cedula',
-    comment: 'Cedula del trabajador',
+  @Column('string', {
+    name: 'nameProyect',
+    comment: 'Nombre del proyecto',
   })
-  cedula: number;
+  nameProyect: string;
 
   @Column('string', {
-    name: 'nameTrabajador',
-    comment: 'Nombre del trabajador',
-  })
-  nameTrabajador: string;
-
-  @Column('string', {
-    name: 'proyectAsignado',
-    comment: 'Proyecto asignar',
+    name: 'descripcionProyect',
+    comment: 'Descripcion del proyecto',
   })
   proyectAsignado: string;
-  
 
-
+  @Column('string', {
+    name: 'tipodeProyect',
+    comment: 'Tipo de proyecto',
+  })
+  tipodeProyect: string;
 }

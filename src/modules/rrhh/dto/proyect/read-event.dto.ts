@@ -2,7 +2,7 @@ import { Exclude, Expose } from 'class-transformer';
 import { BaseProyectDto } from './base-proyect.dto';
 
 @Exclude()
-export class ReadEventDto extends BaseProyectDto {
+export class ReadProyectDto extends BaseProyectDto {
   @Expose()
   readonly id;
 
@@ -22,13 +22,10 @@ export class ReadEventDto extends BaseProyectDto {
   readonly isEnable;
 
   @Expose()
-  readonly cedula;
+  readonly nameProyect;
 
   @Expose()
-  readonly nameTrabajador;
-
-  @Expose()
-  readonly proyectAsignado;
+  readonly descripcionProyect;
 
   @Expose()
   readonly tipodeProyect;
