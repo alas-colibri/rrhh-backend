@@ -34,7 +34,7 @@ export class ProyectController {
     const serviceResponse = await this.proyectService.create(payload);
     return {
       data: serviceResponse.data,
-      message: 'Proyecto creado',
+      message: 'Proyecto creado correcto',
       title: 'Creado',
     };
   }
