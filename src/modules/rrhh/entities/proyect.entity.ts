@@ -63,7 +63,7 @@ export class ProyectEntity {
     name: 'descripcionProyect',
     comment: 'Descripcion del proyecto',
   })
-  proyectAsignado: string;
+  descripcionProyect: string;
 
   @Column('varchar', {
     name: 'tipodeProyect',
