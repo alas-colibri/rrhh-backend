@@ -1,4 +1,5 @@
 export * from './career.entity';
+export * from './catalogueType.entity';
 export * from './catalogue.entity';
 export * from './curriculum.entity';
 export * from './information-student.entity';

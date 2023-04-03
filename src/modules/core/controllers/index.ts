@@ -1,4 +1,5 @@
 export * from './careers.controller';
+export * from './catalogueType.controller';
 export * from './catalogues.controller';
 export * from './curricula.controller';
 export * from './information-students.controller';

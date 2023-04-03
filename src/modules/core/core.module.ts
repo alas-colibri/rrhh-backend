@@ -21,6 +21,9 @@ import {
 } from '@core/services';
 import { DatabaseModule } from '@database';
 import { coreProviders } from '@core/providers';
+import { CatalogueTypeEntity } from './entities/catalogueType.entity';
+import { CatalogueTypesService } from '@core/services';
+import { CatalogueTypesController } from './controllers/catalogueType.controller';
 
 @Global()
 @Module({
@@ -34,10 +37,12 @@ import { coreProviders } from '@core/providers';
     InstitutionsController,
     StudentsController,
     SubjectsController,
+    CatalogueTypesController,
   ],
   providers: [
     ...coreProviders,
     CareersService,
+    CatalogueTypesService,
     CataloguesService,
     CurriculaService,
     InformationStudentsService,
@@ -49,6 +54,7 @@ import { coreProviders } from '@core/providers';
   exports: [
     ...coreProviders,
     CareersService,
+    CatalogueTypesService,
     CataloguesService,
     CurriculaService,
     InformationStudentsService,
