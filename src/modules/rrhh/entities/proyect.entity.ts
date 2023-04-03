@@ -9,7 +9,7 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
-@Entity('proyect', { schema: 'uic' })
+@Entity('proyects', { schema: 'uic' })
 export class ProyectEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -27,24 +27,13 @@ export class ProyectEntity {
     default: () => 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
+
   @DeleteDateColumn({
     name: 'deleted_at',
     type: 'timestamptz',
     nullable: true,
   })
   deletedAt: Date;
-  // Relationships
-  // @ManyToOne(() => CatalogueEntity, (catalogue) => catalogue.events)
-  // @JoinColumn({ name: 'catalogue_id' })
-  // catalogue: CatalogueEntity;
-  // @ManyToOne(() => PlanningEntity, (planning) => planning.events)
-  // @JoinColumn({ name: 'planning_id' })
-  // planning: PlanningEntity;
-  // @OneToMany(
-  //   () => ResponsibleTutorEntity,
-  //   (responsible) => responsible.dateEvent,
-  // )
-  // dateEvents: ResponsibleTutorEntity[];
   //Fields
   @Column('timestamp', {
     name: 'end_date',
@@ -64,19 +53,19 @@ export class ProyectEntity {
   })
   startDate: Date;
 
-  @Column('string', {
+  @Column('varchar', {
     name: 'nameProyect',
     comment: 'Nombre del proyecto',
   })
   nameProyect: string;
 
-  @Column('string', {
+  @Column('varchar', {
     name: 'descripcionProyect',
     comment: 'Descripcion del proyecto',
   })
   proyectAsignado: string;
 
-  @Column('string', {
+  @Column('varchar', {
     name: 'tipodeProyect',
     comment: 'Tipo de proyecto',
   })
