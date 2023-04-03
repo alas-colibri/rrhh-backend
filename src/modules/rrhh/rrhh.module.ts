@@ -5,6 +5,8 @@ import { Repository } from 'typeorm';
 import { rrhhProviders } from './providers';
 import { EventsController } from './controllers';
 import { EventsService } from './services';
+import { ProyectController } from './controllers/proyect.controller';
+import { ProyectService } from './services/proyect.service';
 
 @Global()
 @Module({
@@ -14,13 +16,8 @@ import { EventsService } from './services';
       storage: MemoryStoredFile,
     }),
   ],
-  controllers: [
-    EventsController,
-  ],
-  providers: [
-    ...rrhhProviders,
-    EventsService,
-  ],
+  controllers: [EventsController, ProyectController],
+  providers: [...rrhhProviders, EventsService, ProyectService],
   exports: [],
 })
 export class RrhhModule {}
