@@ -41,6 +41,26 @@ export class CatalogueTypesSeeder {
         name: 'UNIÓN LIBRE',
         type: 'ESTADO',
       },
+      {
+        name: 'Por contrato',
+        type: 'VACACIONES',
+      },
+      {
+        name: 'Por dependencia',
+        type: 'VACACIONES',
+      },
+      {
+        name: 'Por consultoria',
+        type: 'VACACIONES',
+      },
+      {
+        name: 'Ibarra',
+        type: 'CIUDADES',
+      },
+      {
+        name: 'Quito',
+        type: 'CIUDADES',
+      },
     );
 
     for (const catalogueType of catalogueTypes) {
