@@ -4,27 +4,25 @@ import { Repository, FindOptionsWhere } from 'typeorm';
 import { ServiceResponseHttpModel } from '@shared/models';
 import { RepositoryEnum } from '@shared/enums';
 import { PaginationDto } from '@core/dto';
-import { EventEntity } from '../entities';
-import {
-  CreateEventDto,
-  FilterEventDto,
-  ReadEventDto,
-  UpdateEventDto,
-} from '../dto';
+import { HolidayEntity } from '../entities/holiday.entity';
+import { CreateHolidayDto } from '../dto/holiday/create-holiday.dto';
+import { FilterHolidayDto } from '../dto/holiday/filter-holiday.dto';
+import { ReadHolidayDto } from '../dto/holiday/read-holiday.dto';
+import { UpdateHolidayDto } from '../dto/holiday/update-holiday.dto';
 
 @Injectable()
-export class EventsService {
+export class HolidayService {
   constructor(
-    @Inject(RepositoryEnum.EVENT_REPOSITORY)
-    private repository: Repository<EventEntity>,
+    @Inject(RepositoryEnum.HOLIDAY_REPOSITORY)
+    private repository: Repository<HolidayEntity>,
   ) {}
 
   //Metodo Create
-  async create(payload: CreateEventDto): Promise<ServiceResponseHttpModel> {
-    const newEvent = this.repository.create(payload);
-    const eventCreated = await this.repository.save(newEvent);
+  async create(payload: CreateHolidayDto): Promise<ServiceResponseHttpModel> {
+    const newHoliday = this.repository.create(payload);
+    const holidayCreated = await this.repository.save(newHoliday);
 
-    return { data: plainToInstance(ReadEventDto, eventCreated) };
+    return { data: plainToInstance(CreateHolidayDto, holidayCreated) };
   }
 
   async catalogue(): Promise<ServiceResponseHttpModel> {
@@ -43,16 +41,11 @@ export class EventsService {
   //     return { data: plainToInstance(ReadEventDto, EventCreated) };
   //   }
 
-  async findAll(params?: FilterEventDto): Promise<ServiceResponseHttpModel> {
+  async findAll(params?: FilterHolidayDto): Promise<ServiceResponseHttpModel> {
     // Filter by search
     if (params?.limit > 0 && params?.page >= 0) {
       return await this.paginateAndFilter(params);
     }
-
-    // //Other filters
-    // if (params.sort) {
-    //   return this.filterBySort(params.sort);
-    // }
 
     //All
     const response = await this.repository.findAndCount({
@@ -61,14 +54,14 @@ export class EventsService {
     });
 
     return {
-      data: plainToInstance(ReadEventDto, response[0]),
+      data: plainToInstance(ReadHolidayDto, response[0]),
       pagination: { totalItems: response[1], limit: 10 },
     };
   }
 
   // async findByPlanning(
   //   planningId: string,
-  //   params?: FilterEventDto,
+  //   params?: FilterHolidayDto,
   // ): Promise<ServiceResponseHttpModel> {
   //   const response = await this.repository.findAndCount({
   //     //where:,
@@ -77,60 +70,62 @@ export class EventsService {
   //   });
 
   //   return {
-  //     data: plainToInstance(ReadEventDto, response[0]),
+  //     data: plainToInstance(ReadHolidayDto, response[0]),
   //     pagination: { totalItems: response[1], limit: 10 },
   //   };
   // }
 
   async findOne(id: string): Promise<ServiceResponseHttpModel> {
-    const event = await this.repository.findOne({
+    const holiday = await this.repository.findOne({
       where: { id },
       //relations: { catalogue: true, planning: true },
     });
 
-    if (!event) {
-      throw new NotFoundException('La pregunta no funciona');
+    if (!holiday) {
+      throw new NotFoundException('holiday not found');
     }
 
-    return { data: plainToInstance(ReadEventDto, event) };
+    return { data: plainToInstance(ReadHolidayDto, holiday) };
   }
 
   async update(
     id: string,
-    payload: UpdateEventDto,
+    payload: UpdateHolidayDto,
   ): Promise<ServiceResponseHttpModel> {
-    const event = await this.repository.preload({ id, ...payload });
+    const holiday = await this.repository.preload({ id, ...payload });
 
-    if (!event) {
-      throw new NotFoundException('La pregunta no funciona');
+    if (!holiday) {
+      throw new NotFoundException('Holiday not found');
     }
 
-    const eventUpdated = await this.repository.save(event);
+    const holidayUpdated = await this.repository.save(holiday);
 
-    return { data: plainToInstance(ReadEventDto, eventUpdated) };
+    return { data: plainToInstance(ReadHolidayDto, holidayUpdated) };
   }
 
   async remove(id: string): Promise<ServiceResponseHttpModel> {
-    const event = await this.repository.findOneBy({ id });
+    const holiday = await this.repository.findOneBy({ id });
 
-    if (!event) {
-      throw new NotFoundException('La pregunta no funciona');
+    if (!holiday) {
+      throw new NotFoundException('Holiday not found');
     }
 
-    const eventDeleted = await this.repository.softRemove(event);
+    const holidayDeleted = await this.repository.softRemove(holiday);
 
-    return { data: plainToInstance(ReadEventDto, eventDeleted) };
+    return { data: plainToInstance(ReadHolidayDto, holidayDeleted) };
   }
 
-  async removeAll(payload: EventEntity[]): Promise<ServiceResponseHttpModel> {
-    const eventsDeleted = await this.repository.softRemove(payload);
-    return { data: eventsDeleted };
+  async removeAll(payload: HolidayEntity[]): Promise<ServiceResponseHttpModel> {
+    const holidayDeleted = await this.repository.softRemove(payload);
+    return { data: holidayDeleted };
   }
 
   private async paginateAndFilter(
-    params: FilterEventDto,
+    params: FilterHolidayDto,
   ): Promise<ServiceResponseHttpModel> {
-    let where: FindOptionsWhere<EventEntity> | FindOptionsWhere<EventEntity>[];
+    let where:
+      | FindOptionsWhere<HolidayEntity>
+      | FindOptionsWhere<HolidayEntity>[];
     where = {};
     let { page, search } = params;
     const { limit } = params;
@@ -152,26 +147,8 @@ export class EventsService {
     });
 
     return {
-      data: plainToInstance(ReadEventDto, response[0]),
+      data: plainToInstance(ReadHolidayDto, response[0]),
       pagination: { limit, totalItems: response[1] },
     };
   }
-
-  // private async filterBySort(sort: number): Promise<ServiceResponseHttpModel> {
-  //   const where: FindOptionsWhere<EventEntity> = {};
-
-  // if (sort) {
-  //   where.sort = LessThan(sort);
-  // }
-
-  //   const response = await this.repository.findAndCount({
-  //     relations: [],
-  //     where,
-  //   });
-
-  //   return {
-  //     data: response[0],
-  //     pagination: { limit: 10, totalItems: response[1] },
-  //   };
-  // }
 }

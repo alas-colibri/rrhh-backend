@@ -6,8 +6,8 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
 } from 'typeorm';
-@Entity('events', { schema: 'uic' })
-export class EventEntity {
+@Entity('Holidays', { schema: 'uic' })
+export class HolidayEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -31,17 +31,16 @@ export class EventEntity {
     nullable: true,
   })
   deletedAt: Date;
-
   //Fields
-  @Column('varchar', {
-    name: 'question',
-    comment: 'Es la pregunta para la evaluación de desempeño',
+  @Column('timestamp', {
+    name: 'end_date',
+    comment: 'Fin del proyecto',
   })
-  question: string;
+  endDate: Date;
 
-  @Column('boolean', {
-    name: 'active',
-    comment: 'True= activa, False= inactiva ',
+  @Column('timestamp', {
+    name: 'start_date',
+    comment: 'Inicio del proyecto',
   })
-  active: boolean;
+  startDate: Date;
 }

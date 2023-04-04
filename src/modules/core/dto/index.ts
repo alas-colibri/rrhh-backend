@@ -39,3 +39,8 @@ export * from './subjects/subject.dto';
 export * from './subjects/create-subject.dto';
 export * from './subjects/filter-subject.dto';
 export * from './subjects/update-subject.dto';
+
+export * from './catalogueTypes/catalogueType.dto';
+export * from './catalogueTypes/create-catalogueType.dto';
+export * from './catalogueTypes/update-catalogueType.dto';
+export * from './catalogueTypes/filter-catalogueType.dto';

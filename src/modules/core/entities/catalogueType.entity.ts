@@ -1,13 +1,14 @@
 import {
-  PrimaryGeneratedColumn,
   Column,
-  Entity,
   CreateDateColumn,
-  UpdateDateColumn,
   DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
-@Entity('events', { schema: 'uic' })
-export class EventEntity {
+
+@Entity('catalogueTypes', { schema: 'core' })
+export class CatalogueTypeEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -15,6 +16,7 @@ export class EventEntity {
     name: 'created_at',
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
+    comment: 'Fecha de creacion de la carrera',
   })
   createdAt: Date;
 
@@ -22,6 +24,7 @@ export class EventEntity {
     name: 'updated_at',
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
+    comment: 'Fecha de actualizacion de la carrera',
   })
   updatedAt: Date;
 
@@ -29,19 +32,21 @@ export class EventEntity {
     name: 'deleted_at',
     type: 'timestamptz',
     nullable: true,
+    comment: 'Fecha de eliminacion de la carrera',
   })
   deletedAt: Date;
 
   //Fields
-  @Column('varchar', {
-    name: 'question',
-    comment: 'Es la pregunta para la evaluación de desempeño',
-  })
-  question: string;
 
-  @Column('boolean', {
-    name: 'active',
-    comment: 'True= activa, False= inactiva ',
+  @Column('varchar', {
+    name: 'name',
+    comment: 'Nombre del campo del catalogo',
   })
-  active: boolean;
+  name: string;
+
+  @Column('varchar', {
+    name: 'type',
+    comment: 'Tipo del catalogo',
+  })
+  type: string;
 }

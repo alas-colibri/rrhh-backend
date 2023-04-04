@@ -16,25 +16,25 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 //import { Uic } from '@uic/decorators';
 import { ResponseHttpModel } from '@shared/models';
 import { Auth } from '@auth/decorators';
-import { CreateEventDto, FilterEventDto, UpdateEventDto } from '../dto';
-import { EventsService } from '../services';
-import { EventEntity } from '../entities';
+import { HolidayService } from '../services/holiday.service';
+import { CreateHolidayDto } from '../dto/holiday/create-holiday.dto';
+import { FilterHolidayDto } from '../dto/holiday/filter-holiday.dto';
+import { UpdateHolidayDto } from '../dto/holiday/update-holiday.dto';
+import { HolidayEntity } from '../entities/holiday.entity';
 
-@ApiTags('Events')
-@Controller('events')
-export class EventsController {
-  constructor(private eventsService: EventsService) {}
-
+@ApiTags('holiday')
+@Controller('holiday')
+export class HolidayController {
+  constructor(private holidayService: HolidayService) {}
   @ApiOperation({ summary: 'Create One' })
   //@Uic()
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async create(@Body() payload: CreateEventDto): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.create(payload);
-
+  async create(@Body() payload: CreateHolidayDto): Promise<ResponseHttpModel> {
+    const serviceResponse = await this.holidayService.create(payload);
     return {
       data: serviceResponse.data,
-      message: 'Pregunta creada',
+      message: 'Vacacion Asignada creada con exito',
       title: 'Creado',
     };
   }
@@ -43,7 +43,7 @@ export class EventsController {
   @Get('catalogue')
   @HttpCode(HttpStatus.OK)
   async catalogue(): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.catalogue();
+    const serviceResponse = await this.holidayService.catalogue();
 
     return {
       data: serviceResponse.data,
@@ -54,24 +54,24 @@ export class EventsController {
   }
 
   /*}@ApiOperation({ summary: 'Events for sidebar' })
-  @Get('sidebar')
-  @HttpCode(HttpStatus.OK)
-  async getEventsForSidebar(): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.getEventsForSidebar();
-
-    return {
-      data: serviceResponse.data,
-      pagination: serviceResponse.pagination,
-      message: `Catalogue for Sidebar`,
-      title: `Catalogue for Sidebar`,
-    };
-  }*/
+      @Get('sidebar')
+      @HttpCode(HttpStatus.OK)
+      async getEventsForSidebar(): Promise<ResponseHttpModel> {
+        const serviceResponse = await this.eventsService.getEventsForSidebar();
+    
+        return {
+          data: serviceResponse.data,
+          pagination: serviceResponse.pagination,
+          message: `Catalogue for Sidebar`,
+          title: `Catalogue for Sidebar`,
+        };
+      }*/
 
   @ApiOperation({ summary: 'Find All' })
   @Get()
   @HttpCode(HttpStatus.OK)
-  async findAll(@Query() params: FilterEventDto): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.findAll(params);
+  async findAll(@Query() params: FilterHolidayDto): Promise<ResponseHttpModel> {
+    const serviceResponse = await this.holidayService.findAll(params);
 
     return {
       data: serviceResponse.data,
@@ -88,7 +88,7 @@ export class EventsController {
   async findOne(
     @Param('id', ParseUUIDPipe) id: string,
   ): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.findOne(id);
+    const serviceResponse = await this.holidayService.findOne(id);
 
     return {
       data: serviceResponse.data,
@@ -103,13 +103,13 @@ export class EventsController {
   @HttpCode(HttpStatus.CREATED)
   async update(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() payload: UpdateEventDto,
+    @Body() payload: UpdateHolidayDto,
   ): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.update(id, payload);
+    const serviceResponse = await this.holidayService.update(id, payload);
 
     return {
       data: serviceResponse.data,
-      message: `Pregunta actualizada ${id}`,
+      message: `Evento actualizado ${id}`,
       title: `Actualizado`,
     };
   }
@@ -121,11 +121,11 @@ export class EventsController {
   async remove(
     @Param('id', ParseUUIDPipe) id: string,
   ): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.remove(id);
+    const serviceResponse = await this.holidayService.remove(id);
 
     return {
       data: serviceResponse.data,
-      message: `Pregunta eliminada ${id}`,
+      message: `Vacacion eliminada ${id}`,
       title: `Eliminado`,
     };
   }
@@ -134,12 +134,14 @@ export class EventsController {
   @Auth()
   @Patch('remove-all')
   @HttpCode(HttpStatus.CREATED)
-  async removeAll(@Body() payload: EventEntity[]): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.removeAll(payload);
+  async removeAll(
+    @Body() payload: HolidayEntity[],
+  ): Promise<ResponseHttpModel> {
+    const serviceResponse = await this.holidayService.removeAll(payload);
 
     return {
       data: serviceResponse.data,
-      message: `Preguntas eliminadas`,
+      message: `Vacacion eliminada`,
       title: `Eliminado`,
     };
   }

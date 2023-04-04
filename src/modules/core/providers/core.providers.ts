@@ -10,12 +10,19 @@ import {
   SubjectEntity,
 } from '@core/entities';
 import { DataSourceEnum, RepositoryEnum } from '@shared/enums';
+import { CatalogueTypeEntity } from '../entities/catalogueType.entity';
 
 export const coreProviders = [
   {
     provide: RepositoryEnum.CAREER_REPOSITORY,
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(CareerEntity),
+    inject: [DataSourceEnum.PG_DATA_SOURCE],
+  },
+  {
+    provide: RepositoryEnum.CATALOGUE_TYPE_REPOSITORY,
+    useFactory: (dataSource: DataSource) =>
+      dataSource.getRepository(CatalogueTypeEntity),
     inject: [DataSourceEnum.PG_DATA_SOURCE],
   },
   {

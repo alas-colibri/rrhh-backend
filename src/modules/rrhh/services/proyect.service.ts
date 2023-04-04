@@ -1,30 +1,29 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
-import { Repository, FindOptionsWhere } from 'typeorm';
+import { Repository, FindOptionsWhere, LessThan, ILike } from 'typeorm';
 import { ServiceResponseHttpModel } from '@shared/models';
 import { RepositoryEnum } from '@shared/enums';
 import { PaginationDto } from '@core/dto';
 import { EventEntity } from '../entities';
-import {
-  CreateEventDto,
-  FilterEventDto,
-  ReadEventDto,
-  UpdateEventDto,
-} from '../dto';
+import { ProyectEntity } from '../entities/proyect.entity';
+import { CreateProyectDto } from '../dto/proyect/create-proyect.dto';
+import { FilterProyectDto } from '../dto/proyect/filter-proyect.dto';
+import { ReadProyectDto } from '../dto/proyect/read-event.dto';
+import { UpdateProyectDto } from '../dto/proyect/update-event.dto';
 
 @Injectable()
-export class EventsService {
+export class ProyectService {
   constructor(
-    @Inject(RepositoryEnum.EVENT_REPOSITORY)
-    private repository: Repository<EventEntity>,
+    @Inject(RepositoryEnum.PROYECT_REPOSITORY)
+    private repository: Repository<ProyectEntity>,
   ) {}
 
   //Metodo Create
-  async create(payload: CreateEventDto): Promise<ServiceResponseHttpModel> {
-    const newEvent = this.repository.create(payload);
-    const eventCreated = await this.repository.save(newEvent);
+  async create(payload: CreateProyectDto): Promise<ServiceResponseHttpModel> {
+    const newProyect = this.repository.create(payload);
+    const proyectCreated = await this.repository.save(newProyect);
 
-    return { data: plainToInstance(ReadEventDto, eventCreated) };
+    return { data: plainToInstance(CreateProyectDto, proyectCreated) };
   }
 
   async catalogue(): Promise<ServiceResponseHttpModel> {
@@ -43,16 +42,11 @@ export class EventsService {
   //     return { data: plainToInstance(ReadEventDto, EventCreated) };
   //   }
 
-  async findAll(params?: FilterEventDto): Promise<ServiceResponseHttpModel> {
+  async findAll(params?: FilterProyectDto): Promise<ServiceResponseHttpModel> {
     // Filter by search
     if (params?.limit > 0 && params?.page >= 0) {
       return await this.paginateAndFilter(params);
     }
-
-    // //Other filters
-    // if (params.sort) {
-    //   return this.filterBySort(params.sort);
-    // }
 
     //All
     const response = await this.repository.findAndCount({
@@ -61,14 +55,14 @@ export class EventsService {
     });
 
     return {
-      data: plainToInstance(ReadEventDto, response[0]),
+      data: plainToInstance(ReadProyectDto, response[0]),
       pagination: { totalItems: response[1], limit: 10 },
     };
   }
 
   // async findByPlanning(
   //   planningId: string,
-  //   params?: FilterEventDto,
+  //   params?: FilterProyectDto,
   // ): Promise<ServiceResponseHttpModel> {
   //   const response = await this.repository.findAndCount({
   //     //where:,
@@ -77,60 +71,62 @@ export class EventsService {
   //   });
 
   //   return {
-  //     data: plainToInstance(ReadEventDto, response[0]),
+  //     data: plainToInstance(ReadProyectDto, response[0]),
   //     pagination: { totalItems: response[1], limit: 10 },
   //   };
   // }
 
   async findOne(id: string): Promise<ServiceResponseHttpModel> {
-    const event = await this.repository.findOne({
+    const proyect = await this.repository.findOne({
       where: { id },
       //relations: { catalogue: true, planning: true },
     });
 
-    if (!event) {
-      throw new NotFoundException('La pregunta no funciona');
+    if (!proyect) {
+      throw new NotFoundException('proyect not found');
     }
 
-    return { data: plainToInstance(ReadEventDto, event) };
+    return { data: plainToInstance(ReadProyectDto, proyect) };
   }
 
   async update(
     id: string,
-    payload: UpdateEventDto,
+    payload: UpdateProyectDto,
   ): Promise<ServiceResponseHttpModel> {
-    const event = await this.repository.preload({ id, ...payload });
+    const proyect = await this.repository.preload({ id, ...payload });
 
-    if (!event) {
-      throw new NotFoundException('La pregunta no funciona');
+    if (!proyect) {
+      throw new NotFoundException('Proyect not found');
     }
 
-    const eventUpdated = await this.repository.save(event);
+    const proyectUpdated = await this.repository.save(proyect);
 
-    return { data: plainToInstance(ReadEventDto, eventUpdated) };
+    return { data: plainToInstance(ReadProyectDto, proyectUpdated) };
   }
 
   async remove(id: string): Promise<ServiceResponseHttpModel> {
-    const event = await this.repository.findOneBy({ id });
+    const proyect = await this.repository.findOneBy({ id });
 
-    if (!event) {
-      throw new NotFoundException('La pregunta no funciona');
+    if (!proyect) {
+      throw new NotFoundException('Proyect not found');
     }
 
-    const eventDeleted = await this.repository.softRemove(event);
+    const proyectDeleted = await this.repository.softRemove(proyect);
 
-    return { data: plainToInstance(ReadEventDto, eventDeleted) };
+    return { data: plainToInstance(ReadProyectDto, proyectDeleted) };
   }
 
-  async removeAll(payload: EventEntity[]): Promise<ServiceResponseHttpModel> {
-    const eventsDeleted = await this.repository.softRemove(payload);
-    return { data: eventsDeleted };
+  async removeAll(payload: ProyectEntity[]): Promise<ServiceResponseHttpModel> {
+    const proyectDeleted = await this.repository.softRemove(payload);
+    return { data: proyectDeleted };
   }
 
   private async paginateAndFilter(
-    params: FilterEventDto,
+    params: FilterProyectDto,
   ): Promise<ServiceResponseHttpModel> {
-    let where: FindOptionsWhere<EventEntity> | FindOptionsWhere<EventEntity>[];
+    let where:
+      | FindOptionsWhere<ProyectEntity>
+      | FindOptionsWhere<ProyectEntity>[];
     where = {};
     let { page, search } = params;
     const { limit } = params;
@@ -152,26 +148,8 @@ export class EventsService {
     });
 
     return {
-      data: plainToInstance(ReadEventDto, response[0]),
+      data: plainToInstance(ReadProyectDto, response[0]),
       pagination: { limit, totalItems: response[1] },
     };
   }
-
-  // private async filterBySort(sort: number): Promise<ServiceResponseHttpModel> {
-  //   const where: FindOptionsWhere<EventEntity> = {};
-
-  // if (sort) {
-  //   where.sort = LessThan(sort);
-  // }
-
-  //   const response = await this.repository.findAndCount({
-  //     relations: [],
-  //     where,
-  //   });
-
-  //   return {
-  //     data: response[0],
-  //     pagination: { limit: 10, totalItems: response[1] },
-  //   };
-  // }
 }

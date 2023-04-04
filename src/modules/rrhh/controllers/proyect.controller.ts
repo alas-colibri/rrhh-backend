@@ -16,25 +16,25 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 //import { Uic } from '@uic/decorators';
 import { ResponseHttpModel } from '@shared/models';
 import { Auth } from '@auth/decorators';
-import { CreateEventDto, FilterEventDto, UpdateEventDto } from '../dto';
-import { EventsService } from '../services';
-import { EventEntity } from '../entities';
+import { ProyectService } from '../services/proyect.service';
+import { CreateProyectDto } from '../dto/proyect/create-proyect.dto';
+import { FilterProyectDto } from '../dto/proyect/filter-proyect.dto';
+import { UpdateProyectDto } from '../dto/proyect/update-event.dto';
+import { ProyectEntity } from '../entities/proyect.entity';
 
-@ApiTags('Events')
-@Controller('events')
-export class EventsController {
-  constructor(private eventsService: EventsService) {}
-
+@ApiTags('Proyect')
+@Controller('proyect')
+export class ProyectController {
+  constructor(private proyectService: ProyectService) {}
   @ApiOperation({ summary: 'Create One' })
   //@Uic()
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async create(@Body() payload: CreateEventDto): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.create(payload);
-
+  async create(@Body() payload: CreateProyectDto): Promise<ResponseHttpModel> {
+    const serviceResponse = await this.proyectService.create(payload);
     return {
       data: serviceResponse.data,
-      message: 'Pregunta creada',
+      message: 'Proyecto creado correcto',
       title: 'Creado',
     };
   }
@@ -43,7 +43,7 @@ export class EventsController {
   @Get('catalogue')
   @HttpCode(HttpStatus.OK)
   async catalogue(): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.catalogue();
+    const serviceResponse = await this.proyectService.catalogue();
 
     return {
       data: serviceResponse.data,
@@ -54,24 +54,24 @@ export class EventsController {
   }
 
   /*}@ApiOperation({ summary: 'Events for sidebar' })
-  @Get('sidebar')
-  @HttpCode(HttpStatus.OK)
-  async getEventsForSidebar(): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.getEventsForSidebar();
-
-    return {
-      data: serviceResponse.data,
-      pagination: serviceResponse.pagination,
-      message: `Catalogue for Sidebar`,
-      title: `Catalogue for Sidebar`,
-    };
-  }*/
+    @Get('sidebar')
+    @HttpCode(HttpStatus.OK)
+    async getEventsForSidebar(): Promise<ResponseHttpModel> {
+      const serviceResponse = await this.eventsService.getEventsForSidebar();
+  
+      return {
+        data: serviceResponse.data,
+        pagination: serviceResponse.pagination,
+        message: `Catalogue for Sidebar`,
+        title: `Catalogue for Sidebar`,
+      };
+    }*/
 
   @ApiOperation({ summary: 'Find All' })
   @Get()
   @HttpCode(HttpStatus.OK)
-  async findAll(@Query() params: FilterEventDto): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.findAll(params);
+  async findAll(@Query() params: FilterProyectDto): Promise<ResponseHttpModel> {
+    const serviceResponse = await this.proyectService.findAll(params);
 
     return {
       data: serviceResponse.data,
@@ -88,7 +88,7 @@ export class EventsController {
   async findOne(
     @Param('id', ParseUUIDPipe) id: string,
   ): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.findOne(id);
+    const serviceResponse = await this.proyectService.findOne(id);
 
     return {
       data: serviceResponse.data,
@@ -103,13 +103,13 @@ export class EventsController {
   @HttpCode(HttpStatus.CREATED)
   async update(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() payload: UpdateEventDto,
+    @Body() payload: UpdateProyectDto,
   ): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.update(id, payload);
+    const serviceResponse = await this.proyectService.update(id, payload);
 
     return {
       data: serviceResponse.data,
-      message: `Pregunta actualizada ${id}`,
+      message: `Evento actualizado ${id}`,
       title: `Actualizado`,
     };
   }
@@ -121,11 +121,11 @@ export class EventsController {
   async remove(
     @Param('id', ParseUUIDPipe) id: string,
   ): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.remove(id);
+    const serviceResponse = await this.proyectService.remove(id);
 
     return {
       data: serviceResponse.data,
-      message: `Pregunta eliminada ${id}`,
+      message: `Proyecto eliminado ${id}`,
       title: `Eliminado`,
     };
   }
@@ -134,12 +134,14 @@ export class EventsController {
   @Auth()
   @Patch('remove-all')
   @HttpCode(HttpStatus.CREATED)
-  async removeAll(@Body() payload: EventEntity[]): Promise<ResponseHttpModel> {
-    const serviceResponse = await this.eventsService.removeAll(payload);
+  async removeAll(
+    @Body() payload: ProyectEntity[],
+  ): Promise<ResponseHttpModel> {
+    const serviceResponse = await this.proyectService.removeAll(payload);
 
     return {
       data: serviceResponse.data,
-      message: `Preguntas eliminadas`,
+      message: `Proyectos eliminados`,
       title: `Eliminado`,
     };
   }
