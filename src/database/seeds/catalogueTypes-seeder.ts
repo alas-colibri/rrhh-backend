@@ -61,6 +61,14 @@ export class CatalogueTypesSeeder {
         name: 'Quito',
         type: 'CIUDADES',
       },
+      {
+        name: 'Temporada',
+        type: 'TIPOCONTRATO',
+      },
+      {
+        name: 'Indefinido',
+        type: 'TIPOCONTRATO',
+      },
     );
 
     for (const catalogueType of catalogueTypes) {

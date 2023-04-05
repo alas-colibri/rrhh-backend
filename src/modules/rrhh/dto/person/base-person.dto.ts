@@ -41,8 +41,4 @@ export class BasePersonDto {
   @IsNotEmpty(isNotEmptyValidationOptions())
   @IsString()
   readonly typeContract: string;
-
-  @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsString()
-  readonly projects: string;
 }
