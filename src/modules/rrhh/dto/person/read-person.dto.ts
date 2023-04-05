@@ -41,7 +41,4 @@ export class ReadPersonDto extends BasePersonDto {
 
   @Expose()
   readonly typeContract;
-
-  @Expose()
-  readonly projects;
 }

@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import {
   PrimaryGeneratedColumn,
   Column,
@@ -111,10 +112,4 @@ export class PersonEntity {
     comment: 'Tipo de Contrato',
   })
   typeContract: string;
-
-  @Column('varchar', {
-    name: 'projects',
-    comment: 'Proyecto',
-  })
-  projects: string;
 }

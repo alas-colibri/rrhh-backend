@@ -16,4 +16,3 @@ export * from './holiday/create-holiday.dto';
 export * from './holiday/filter-holiday.dto';
 export * from './holiday/read-holiday.dto';
 export * from './holiday/update-holiday.dto';
-
