@@ -8,6 +8,8 @@ import { ProyectController } from './controllers/proyect.controller';
 import { ProyectService } from './services/proyect.service';
 import { HolidayController } from './controllers/holiday.controller';
 import { HolidayService } from './services/holiday.service';
+import { ProjectAssignmentController } from './controllers/projectAssignment.controller';
+import { ProjectAssignmentService } from './services/projectAssignment.service';
 
 @Global()
 @Module({
@@ -23,6 +25,7 @@ import { HolidayService } from './services/holiday.service';
     ProyectController,
     HolidayController,
     PersonController,
+    ProjectAssignmentController,
   ],
   providers: [
     ...rrhhProviders,
@@ -30,6 +33,7 @@ import { HolidayService } from './services/holiday.service';
     ProyectService,
     HolidayService,
     PersonService,
+    ProjectAssignmentService,
   ],
 
   exports: [],

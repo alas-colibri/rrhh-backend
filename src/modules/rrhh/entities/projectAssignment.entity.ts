@@ -9,6 +9,7 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
+import { HolidayEntity } from './holiday.entity';
 
 @Entity('projectAssignment', { schema: 'uic' })
 export class ProjectAssignmentEntity {
@@ -35,6 +36,10 @@ export class ProjectAssignmentEntity {
     nullable: true,
   })
   deletedAt: Date;
+  //FK
+  @OneToMany(() => HolidayEntity, (holiday) => holiday.name)
+  holiday: HolidayEntity[];
+
   //Fields
   @Column('timestamp', {
     name: 'dateEntryFoundation',

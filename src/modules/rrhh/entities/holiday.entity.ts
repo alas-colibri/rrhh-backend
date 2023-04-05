@@ -5,7 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import { ProjectAssignmentEntity } from './projectAssignment.entity';
 @Entity('Holidays', { schema: 'uic' })
 export class HolidayEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -31,6 +34,10 @@ export class HolidayEntity {
     nullable: true,
   })
   deletedAt: Date;
+  //forkey
+  @ManyToOne(() => ProjectAssignmentEntity, (name) => name.holiday)
+  @JoinColumn({ name: 'name_id' })
+  name: HolidayEntity;
   //Fields
   @Column('timestamp', {
     name: 'end_date',

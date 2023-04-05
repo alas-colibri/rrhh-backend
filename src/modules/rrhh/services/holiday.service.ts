@@ -49,7 +49,9 @@ export class HolidayService {
 
     //All
     const response = await this.repository.findAndCount({
-      relations: {},
+      relations: {
+        name: true,
+      },
       order: { updatedAt: 'DESC' },
     });
 
@@ -78,7 +80,9 @@ export class HolidayService {
   async findOne(id: string): Promise<ServiceResponseHttpModel> {
     const holiday = await this.repository.findOne({
       where: { id },
-      //relations: { catalogue: true, planning: true },
+      relations: {
+        name: true,
+      },
     });
 
     if (!holiday) {
@@ -138,7 +142,9 @@ export class HolidayService {
     }
     const response = await this.repository.findAndCount({
       where,
-      relations: {},
+      relations: {
+        name: true,
+      },
       take: limit,
       skip: PaginationDto.getOffset(limit, page),
       order: {

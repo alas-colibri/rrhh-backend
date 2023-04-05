@@ -7,6 +7,9 @@ export class ReadHolidayDto extends BaseHolidayDto {
   readonly id;
 
   @Expose()
+  readonly name;
+
+  @Expose()
   readonly startDate;
 
   @Expose()
