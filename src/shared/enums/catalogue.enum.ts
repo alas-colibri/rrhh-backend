@@ -26,6 +26,7 @@ export enum CatalogueTypeEnum {
   SEX = 'SEX',
   YES_NO = 'YES_NO',
   YES_NO_NA = 'YES_NO_NA',
+  GENERO = 'GENERO',
 }
 
 export enum CatalogueStateEnum {
