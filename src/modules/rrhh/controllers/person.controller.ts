@@ -66,7 +66,7 @@ export class PersonController {
 
     return {
       data: serviceResponse.data,
-      message: `Persona Ac ${id}`,
+      message: `Persona Actualizada ${id}`,
       title: `Actualizado`,
     };
   }
