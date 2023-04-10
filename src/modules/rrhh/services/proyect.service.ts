@@ -60,22 +60,6 @@ export class ProyectService {
     };
   }
 
-  // async findByPlanning(
-  //   planningId: string,
-  //   params?: FilterProyectDto,
-  // ): Promise<ServiceResponseHttpModel> {
-  //   const response = await this.repository.findAndCount({
-  //     //where:,
-  //     relations: {},
-  //     order: { updatedAt: 'DESC' },
-  //   });
-
-  //   return {
-  //     data: plainToInstance(ReadProyectDto, response[0]),
-  //     pagination: { totalItems: response[1], limit: 10 },
-  //   };
-  // }
-
   async findOne(id: string): Promise<ServiceResponseHttpModel> {
     const proyect = await this.repository.findOne({
       where: { id },
@@ -135,7 +119,8 @@ export class ProyectService {
       search = search.trim();
       page = 0;
       where = [];
-      //where.push({ catalogue: ILike(`%${search}%`) });
+      where.push({ nameProyect: ILike(`%${search}%`) });
+      where.push({ descripcionProyect: ILike(`%${search}%`) });
     }
     const response = await this.repository.findAndCount({
       where,

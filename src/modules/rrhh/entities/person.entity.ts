@@ -10,6 +10,7 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
+import { EvaluationEntity } from './evaluation.entity';
 @Entity('person', { schema: 'uic' })
 export class PersonEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -51,6 +52,8 @@ export class PersonEntity {
   //   (responsible) => responsible.dateEvent,
   // )
   // dateEvents: ResponsibleTutorEntity[];
+  @OneToMany(() => EvaluationEntity, (person) => person.name)
+  person: EvaluationEntity[];
 
   //Fields
   @Column('varchar', {

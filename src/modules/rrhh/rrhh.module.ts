@@ -2,7 +2,11 @@ import { Global, Module } from '@nestjs/common';
 import { DatabaseModule } from '@database';
 import { MemoryStoredFile, NestjsFormDataModule } from 'nestjs-form-data';
 import { rrhhProviders } from './providers';
-import { EventsController, PersonController } from './controllers';
+import {
+  EvaluationController,
+  EventsController,
+  PersonController,
+} from './controllers';
 import { EventsService, PersonService } from './services';
 import { ProyectController } from './controllers/proyect.controller';
 import { ProyectService } from './services/proyect.service';
@@ -10,6 +14,7 @@ import { HolidayController } from './controllers/holiday.controller';
 import { HolidayService } from './services/holiday.service';
 import { ProjectAssignmentController } from './controllers/projectAssignment.controller';
 import { ProjectAssignmentService } from './services/projectAssignment.service';
+import { EvaluationService } from './services/evaluation.service';
 
 @Global()
 @Module({
@@ -21,6 +26,7 @@ import { ProjectAssignmentService } from './services/projectAssignment.service';
   ],
 
   controllers: [
+    EvaluationController,
     EventsController,
     ProyectController,
     HolidayController,
@@ -29,6 +35,7 @@ import { ProjectAssignmentService } from './services/projectAssignment.service';
   ],
   providers: [
     ...rrhhProviders,
+    EvaluationService,
     EventsService,
     ProyectService,
     HolidayService,

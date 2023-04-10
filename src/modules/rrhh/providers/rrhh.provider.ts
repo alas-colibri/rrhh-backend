@@ -1,11 +1,22 @@
 import { DataSource } from 'typeorm';
 import { DataSourceEnum, RepositoryEnum } from '@shared/enums';
 
-import { EventEntity, ProyectEntity, PersonEntity } from '../entities';
+import {
+  EventEntity,
+  ProyectEntity,
+  PersonEntity,
+  EvaluationEntity,
+} from '../entities';
 import { HolidayEntity } from '../entities/holiday.entity';
 import { ProjectAssignmentEntity } from '../entities/projectAssignment.entity';
 
 export const rrhhProviders = [
+  {
+    provide: RepositoryEnum.EVALUATION_REPOSITORY,
+    useFactory: (dataSource: DataSource) =>
+      dataSource.getRepository(EvaluationEntity),
+    inject: [DataSourceEnum.PG_DATA_SOURCE],
+  },
   {
     provide: RepositoryEnum.EVENT_REPOSITORY,
     useFactory: (dataSource: DataSource) =>

@@ -1,3 +1,10 @@
+//Evaluation
+export * from './evaluation/base-evaluation.dto';
+export * from './evaluation/create-evaluation.dto';
+export * from './evaluation/filter-evaluation.dto';
+export * from './evaluation/read-evaluation.dto';
+export * from './evaluation/update-evaluation.dto';
+
 //Events
 export * from './events/base-event.dto';
 export * from './events/create-event.dto';
