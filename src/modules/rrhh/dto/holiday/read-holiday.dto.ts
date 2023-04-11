@@ -14,4 +14,7 @@ export class ReadHolidayDto extends BaseHolidayDto {
 
   @Expose()
   readonly endDate;
+
+  @Expose()
+  readonly typeHoliday;
 }

@@ -20,4 +20,8 @@ export class BaseHolidayDto {
   @IsNotEmpty(isNotEmptyValidationOptions())
   @IsDate()
   readonly startDate: Date;
+
+  @IsNotEmpty(isNotEmptyValidationOptions())
+  @IsString()
+  readonly typeHoliday: string;
 }
