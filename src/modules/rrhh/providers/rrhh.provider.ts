@@ -6,6 +6,7 @@ import {
   ProyectEntity,
   PersonEntity,
   EvaluationEntity,
+  DocumentacionEntity,
 } from '../entities';
 import { HolidayEntity } from '../entities/holiday.entity';
 import { ProjectAssignmentEntity } from '../entities/projectAssignment.entity';
@@ -47,6 +48,13 @@ export const rrhhProviders = [
     provide: RepositoryEnum.PROJECTASSIGNMENT_REPOSITORY,
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(ProjectAssignmentEntity),
+    inject: [DataSourceEnum.PG_DATA_SOURCE],
+  },
+
+  {
+    provide: RepositoryEnum.DOCUMENTACION_REPOSITORY,
+    useFactory: (dataSource: DataSource) =>
+      dataSource.getRepository(DocumentacionEntity),
     inject: [DataSourceEnum.PG_DATA_SOURCE],
   },
 ];
