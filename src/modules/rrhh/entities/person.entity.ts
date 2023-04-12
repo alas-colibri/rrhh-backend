@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { EvaluationEntity } from './evaluation.entity';
 @Entity('person', { schema: 'uic' })
