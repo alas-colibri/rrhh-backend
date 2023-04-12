@@ -25,6 +25,21 @@ export class PersonService {
     return { data: plainToInstance(ReadPersonDto, personCreated) };
   }
 
+  async catalogue(): Promise<ServiceResponseHttpModel> {
+    const response = await this.repository.findAndCount({
+      relations: [],
+      take: 1000,
+    });
+
+    return {
+      pagination: {
+        totalItems: response[1],
+        limit: 10,
+      },
+      data: response[0],
+    };
+  }
+
   //metodo find all
 
   async findAll(params?: FilterPersonDto): Promise<ServiceResponseHttpModel> {

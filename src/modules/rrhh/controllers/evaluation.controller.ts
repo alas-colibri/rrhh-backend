@@ -36,8 +36,8 @@ export class EvaluationController {
     const serviceResponse = await this.evaluationService.create(payload);
     return {
       data: serviceResponse.data,
-      message: 'Proyecto creado correcto',
-      title: 'Creado',
+      message: 'Evaluación creada',
+      title: 'Evaluación',
     };
   }
 
@@ -113,8 +113,8 @@ export class EvaluationController {
 
     return {
       data: serviceResponse.data,
-      message: `Evento actualizado ${id}`,
-      title: `Actualizado`,
+      message: `Se actualizo la nota`,
+      title: `Revisión`,
     };
   }
 

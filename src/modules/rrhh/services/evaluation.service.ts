@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
-import { Repository, FindOptionsWhere } from 'typeorm';
+import { Repository, FindOptionsWhere, ILike } from 'typeorm';
 import { ServiceResponseHttpModel } from '@shared/models';
 import { RepositoryEnum } from '@shared/enums';
 import { PaginationDto } from '@core/dto';
@@ -53,7 +53,7 @@ export class EvaluationService {
 
     //All
     const response = await this.repository.findAndCount({
-      relations: {},
+      relations: { name: true },
       order: { updatedAt: 'DESC' },
     });
 
@@ -66,7 +66,7 @@ export class EvaluationService {
   async findOne(id: string): Promise<ServiceResponseHttpModel> {
     const evaluation = await this.repository.findOne({
       where: { id },
-      //relations: { catalogue: true, planning: true },
+      relations: { name: true },
     });
 
     if (!evaluation) {
@@ -124,12 +124,13 @@ export class EvaluationService {
       search = search.trim();
       page = 0;
       where = [];
-      //   where.push({ nameProyect: ILike(`%${search}%`) });
-      //   where.push({ descripcionProyect: ILike(`%${search}%`) });
+      where.push({ name: ILike(`%${search}%`) });
+      where.push({ observation: ILike(`%${search}%`) });
+      where.push({ noteF: ILike(`%${search}%`) });
     }
     const response = await this.repository.findAndCount({
       where,
-      relations: {},
+      relations: { name: true },
       take: limit,
       skip: PaginationDto.getOffset(limit, page),
       order: {

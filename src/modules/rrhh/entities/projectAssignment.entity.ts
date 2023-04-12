@@ -9,6 +9,7 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
+import { EvaluationEntity } from './evaluation.entity';
 import { HolidayEntity } from './holiday.entity';
 
 @Entity('projectAssignment', { schema: 'uic' })
@@ -39,6 +40,9 @@ export class ProjectAssignmentEntity {
   //FK
   @OneToMany(() => HolidayEntity, (holiday) => holiday.name)
   holiday: HolidayEntity[];
+
+  @OneToMany(() => EvaluationEntity, (holiday) => holiday.name)
+  evaluation: EvaluationEntity[];
 
   //Fields
   @Column('timestamp', {
