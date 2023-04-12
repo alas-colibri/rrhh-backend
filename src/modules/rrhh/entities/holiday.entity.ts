@@ -9,7 +9,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { ProjectAssignmentEntity } from './projectAssignment.entity';
-@Entity('Holidays', { schema: 'uic' })
+@Entity('holidays', { schema: 'uic' })
 export class HolidayEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -50,4 +50,10 @@ export class HolidayEntity {
     comment: 'Inicio del proyecto',
   })
   startDate: Date;
+
+  @Column('varchar', {
+    name: 'type_holiday',
+    comment: 'Tipo de Vacacion',
+  })
+  typeHoliday: string;
 }

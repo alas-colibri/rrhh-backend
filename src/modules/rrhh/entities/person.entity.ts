@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import {
   PrimaryGeneratedColumn,
   Column,
@@ -6,9 +5,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
-  ManyToOne,
-  JoinColumn,
-  OneToMany,
 } from 'typeorm';
 import { EvaluationEntity } from './evaluation.entity';
 @Entity('person', { schema: 'uic' })
