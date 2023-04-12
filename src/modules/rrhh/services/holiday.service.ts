@@ -99,7 +99,7 @@ export class HolidayService {
     const holiday = await this.repository.preload({ id, ...payload });
 
     if (!holiday) {
-      throw new NotFoundException('Holiday not found');
+      throw new NotFoundException('Vacacion no Encontrada');
     }
 
     const holidayUpdated = await this.repository.save(holiday);
@@ -111,7 +111,7 @@ export class HolidayService {
     const holiday = await this.repository.findOneBy({ id });
 
     if (!holiday) {
-      throw new NotFoundException('Holiday not found');
+      throw new NotFoundException('No se pudo Eliminar');
     }
 
     const holidayDeleted = await this.repository.softRemove(holiday);
