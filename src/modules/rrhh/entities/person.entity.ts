@@ -49,8 +49,6 @@ export class PersonEntity {
   //   (responsible) => responsible.dateEvent,
   // )
   // dateEvents: ResponsibleTutorEntity[];
-  @OneToMany(() => EvaluationEntity, (person) => person.name)
-  person: EvaluationEntity[];
 
   //Fields
   @Column('varchar', {
