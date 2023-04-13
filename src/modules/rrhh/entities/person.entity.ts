@@ -53,6 +53,9 @@ export class PersonEntity {
   @OneToMany(() => ProjectAssignmentEntity, (person) => person.person)
   person: ProjectAssignmentEntity;
 
+  @OneToMany(() => ProjectAssignmentEntity, (evaluation) => evaluation.person)
+  name: EvaluationEntity;
+
   //Fields
   @Column('varchar', {
     name: 'names',

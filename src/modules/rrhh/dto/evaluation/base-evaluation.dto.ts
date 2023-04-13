@@ -1,10 +1,11 @@
 import { Allow, IsNotEmpty, IsString } from 'class-validator';
 import { isNotEmptyValidationOptions } from '@shared/validation';
 import { ProjectAssignmentEntity } from '../../entities/projectAssignment.entity';
+import { PersonEntity } from '../../entities/person.entity';
 
 export class BaseEvaluationDto {
   @Allow()
-  readonly name: ProjectAssignmentEntity;
+  readonly name: PersonEntity;
 
   @IsNotEmpty(isNotEmptyValidationOptions())
   @IsString()

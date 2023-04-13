@@ -53,7 +53,7 @@ export class EvaluationService {
 
     //All
     const response = await this.repository.findAndCount({
-      relations: { name: true },
+      relations: ['name'],
       order: { updatedAt: 'DESC' },
     });
 

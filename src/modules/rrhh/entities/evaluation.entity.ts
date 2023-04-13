@@ -36,9 +36,9 @@ export class EvaluationEntity {
   })
   deletedAt: Date;
   ///Fk
-  @ManyToOne(() => ProjectAssignmentEntity, (name) => name.evaluation)
+  @ManyToOne(() => PersonEntity, (name) => name.name)
   @JoinColumn({ name: 'name_id' })
-  name: EvaluationEntity;
+  name: PersonEntity;
   //Fields
   @Column('varchar', {
     name: 'question1',

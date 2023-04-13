@@ -44,7 +44,7 @@ export class ProjectAssignmentEntity {
   holiday: HolidayEntity[];
 
   @OneToMany(() => EvaluationEntity, (holiday) => holiday.name)
-  evaluation: EvaluationEntity[];
+  evaluation: EvaluationEntity;
 
   @ManyToOne(() => PersonEntity, (person) => person.person)
   @JoinColumn({ name: 'person_id' })
