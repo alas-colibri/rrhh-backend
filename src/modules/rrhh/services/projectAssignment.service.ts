@@ -7,8 +7,8 @@ import { PaginationDto } from '@core/dto';
 import { ProjectAssignmentEntity } from '../entities/projectAssignment.entity';
 import { CreateProjectAssignmentDto } from '../dto/projectAssignment/create-projectAssignment.dto';
 import { FilterProjectAssignmentDto } from '../dto/projectAssignment/filter-projectAssignment.dto';
-import { ReadProjectAssignmentDto } from '../dto/projectAssignment/read-event.dto';
-import { UpdateProjectAssignmentDto } from '../dto/projectAssignment/update-event.dto';
+import { ReadProjectAssignmentDto } from '../dto/projectAssignment/read-projectAssignment.dto';
+import { UpdateProjectAssignmentDto } from '../dto/projectAssignment/update-projectAssignment.dto';
 
 @Injectable()
 export class ProjectAssignmentService {
@@ -36,7 +36,7 @@ export class ProjectAssignmentService {
 
   async catalogue(): Promise<ServiceResponseHttpModel> {
     const response = await this.repository.findAndCount({
-      relations: [],
+      relations: { person: true, availableProject: true },
       take: 1000,
     });
 
@@ -48,13 +48,6 @@ export class ProjectAssignmentService {
       data: response[0],
     };
   }
-  // //asignar fases
-  //   async assignEvent(payload: CreateEventDto): Promise<ServiceResponseHttpModel> {
-  //     const newPlanning = this.repository.create(payload);
-  //     const EventCreated = await this.repository.save(newPlanning);
-
-  //     return { data: plainToInstance(ReadEventDto, EventCreated) };
-  //   }
 
   async findAll(
     params?: FilterProjectAssignmentDto,
@@ -66,7 +59,7 @@ export class ProjectAssignmentService {
 
     //All
     const response = await this.repository.findAndCount({
-      relations: {},
+      relations: { person: true, availableProject: true },
       order: { updatedAt: 'DESC' },
     });
 
@@ -76,26 +69,10 @@ export class ProjectAssignmentService {
     };
   }
 
-  // async findByPlanning(
-  //   planningId: string,
-  //   params?: FilterProyectDto,
-  // ): Promise<ServiceResponseHttpModel> {
-  //   const response = await this.repository.findAndCount({
-  //     //where:,
-  //     relations: {},
-  //     order: { updatedAt: 'DESC' },
-  //   });
-
-  //   return {
-  //     data: plainToInstance(ReadProyectDto, response[0]),
-  //     pagination: { totalItems: response[1], limit: 10 },
-  //   };
-  // }
-
   async findOne(id: string): Promise<ServiceResponseHttpModel> {
     const projectAssignment = await this.repository.findOne({
       where: { id },
-      //relations: { catalogue: true, planning: true },
+      relations: { person: true, availableProject: true },
     });
 
     if (!projectAssignment) {
@@ -163,11 +140,13 @@ export class ProjectAssignmentService {
       search = search.trim();
       page = 0;
       where = [];
-      //where.push({ catalogue: ILike(`%${search}%`) });
+      where.push({ person: ILike(`%${search}%`) });
+      where.push({ availableProject: ILike(`%${search}%`) });
+      where.push({ projectCharge: ILike(`%${search}%`) });
     }
     const response = await this.repository.findAndCount({
       where,
-      relations: {},
+      relations: { person: true, availableProject: true },
       take: limit,
       skip: PaginationDto.getOffset(limit, page),
       order: {

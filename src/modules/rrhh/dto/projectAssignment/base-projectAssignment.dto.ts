@@ -1,11 +1,7 @@
-import {
-  IsNotEmpty,
-  IsDate,
-  Allow,
-  IsBoolean,
-  IsString,
-} from 'class-validator';
+import { IsNotEmpty, IsDate, Allow, IsString } from 'class-validator';
 import { isNotEmptyValidationOptions } from '@shared/validation';
+import { PersonEntity } from '../../entities/person.entity';
+import { ProyectEntity } from '../../entities/proyect.entity';
 
 export class BaseProjectAssignmentDto {
   @IsNotEmpty(isNotEmptyValidationOptions())
@@ -20,15 +16,13 @@ export class BaseProjectAssignmentDto {
   @IsDate()
   readonly departureDateProject: Date;
 
-  @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsBoolean()
-  readonly isEnable: boolean;
-
-  @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsString()
-  readonly availableProjects: string;
-
-  @IsNotEmpty(isNotEmptyValidationOptions())
+  //@IsNotEmpty(isNotEmptyValidationOptions())
   @IsString()
   readonly projectCharge: string;
+
+  @Allow()
+  readonly person: PersonEntity;
+
+  @Allow()
+  readonly availableProject: ProyectEntity;
 }

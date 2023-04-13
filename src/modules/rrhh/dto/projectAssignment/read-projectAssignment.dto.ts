@@ -6,12 +6,6 @@ export class ReadProjectAssignmentDto extends BaseProjectAssignmentDto {
   @Expose()
   readonly id;
 
-  // @Expose()
-  // readonly catalogue;
-
-  // @Expose()
-  // readonly planning;
-
   @Expose()
   readonly departureDateProject;
 
@@ -22,11 +16,11 @@ export class ReadProjectAssignmentDto extends BaseProjectAssignmentDto {
   readonly dateEntryFoundation;
 
   @Expose()
-  readonly isEnable;
-
-  @Expose()
   readonly projectCharge;
 
   @Expose()
-  readonly tavailableProjects;
+  readonly availableProject;
+
+  @Expose()
+  readonly person;
 }

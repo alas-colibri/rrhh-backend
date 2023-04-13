@@ -40,6 +40,20 @@ export class PersonController {
     };
   }
 
+  @ApiOperation({ summary: 'Catalogue' })
+  @Get('catalogue')
+  @HttpCode(HttpStatus.OK)
+  async catalogue(): Promise<ResponseHttpModel> {
+    const serviceResponse = await this.personService.catalogue();
+
+    return {
+      data: serviceResponse.data,
+      pagination: serviceResponse.pagination,
+      message: `catalogue`,
+      title: `Catalogue`,
+    };
+  }
+
   @ApiOperation({ summary: 'Find All' })
   @Get()
   @HttpCode(HttpStatus.OK)

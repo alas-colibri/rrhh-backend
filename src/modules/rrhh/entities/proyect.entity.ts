@@ -9,6 +9,7 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
+import { ProjectAssignmentEntity } from './projectAssignment.entity';
 @Entity('proyects', { schema: 'uic' })
 export class ProyectEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -34,6 +35,12 @@ export class ProyectEntity {
     nullable: true,
   })
   deletedAt: Date;
+  ///
+  @OneToMany(
+    () => ProjectAssignmentEntity,
+    (availableProject) => availableProject.availableProject,
+  )
+  availableProject: ProjectAssignmentEntity;
   //Fields
   @Column('timestamp', {
     name: 'end_date',

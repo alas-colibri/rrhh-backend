@@ -26,17 +26,11 @@ export class PersonService {
   }
 
   async catalogue(): Promise<ServiceResponseHttpModel> {
-    const response = await this.repository.findAndCount({
-      relations: [],
-      take: 1000,
-    });
+    const response = await this.repository.findAndCount({ take: 1000 });
 
     return {
-      pagination: {
-        totalItems: response[1],
-        limit: 10,
-      },
       data: response[0],
+      pagination: { totalItems: response[1], limit: 10 },
     };
   }
 

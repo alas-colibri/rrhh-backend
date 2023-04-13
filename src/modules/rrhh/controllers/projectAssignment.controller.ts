@@ -18,7 +18,7 @@ import { ResponseHttpModel } from '@shared/models';
 import { Auth } from '@auth/decorators';
 import { CreateProjectAssignmentDto } from '../dto/projectAssignment/create-projectAssignment.dto';
 import { FilterProjectAssignmentDto } from '../dto/projectAssignment/filter-projectAssignment.dto';
-import { UpdateProjectAssignmentDto } from '../dto/projectAssignment/update-event.dto';
+import { UpdateProjectAssignmentDto } from '../dto/projectAssignment/update-projectAssignment.dto';
 import { ProjectAssignmentEntity } from '../entities/projectAssignment.entity';
 import { ProjectAssignmentService } from '../services/projectAssignment.service';
 

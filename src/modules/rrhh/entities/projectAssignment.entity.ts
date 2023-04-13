@@ -11,6 +11,8 @@ import {
 } from 'typeorm';
 import { EvaluationEntity } from './evaluation.entity';
 import { HolidayEntity } from './holiday.entity';
+import { PersonEntity } from './person.entity';
+import { ProyectEntity } from './proyect.entity';
 
 @Entity('projectAssignment', { schema: 'uic' })
 export class ProjectAssignmentEntity {
@@ -44,6 +46,17 @@ export class ProjectAssignmentEntity {
   @OneToMany(() => EvaluationEntity, (holiday) => holiday.name)
   evaluation: EvaluationEntity[];
 
+  @ManyToOne(() => PersonEntity, (person) => person.person)
+  @JoinColumn({ name: 'person_id' })
+  person: ProjectAssignmentEntity;
+
+  @ManyToOne(
+    () => ProyectEntity,
+    (availableProject) => availableProject.availableProject,
+  )
+  @JoinColumn({ name: 'availableProject_id' })
+  availableProject: ProjectAssignmentEntity;
+
   //Fields
   @Column('timestamp', {
     name: 'dateEntryFoundation',
@@ -62,12 +75,6 @@ export class ProjectAssignmentEntity {
     comment: 'Fecha de salida al proyecto',
   })
   departureDateProject: Date;
-
-  @Column('varchar', {
-    name: 'availableProjects',
-    comment: 'Proyectos Disponibles',
-  })
-  availableProjects: string;
 
   @Column('varchar', {
     name: 'projectCharge',

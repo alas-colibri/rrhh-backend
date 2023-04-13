@@ -5,8 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { EvaluationEntity } from './evaluation.entity';
+import { ProjectAssignmentEntity } from './projectAssignment.entity';
 @Entity('person', { schema: 'uic' })
 export class PersonEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -48,6 +50,8 @@ export class PersonEntity {
   //   (responsible) => responsible.dateEvent,
   // )
   // dateEvents: ResponsibleTutorEntity[];
+  @OneToMany(() => ProjectAssignmentEntity, (person) => person.person)
+  person: ProjectAssignmentEntity;
 
   //Fields
   @Column('varchar', {
