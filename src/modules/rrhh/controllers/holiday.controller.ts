@@ -141,7 +141,7 @@ export class HolidayController {
 
     return {
       data: serviceResponse.data,
-      message: `Vacacion eliminada`,
+      message: `Vacaciones eliminada`,
       title: `Eliminado`,
     };
   }
