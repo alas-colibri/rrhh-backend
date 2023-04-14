@@ -15,6 +15,8 @@ import { HolidayService } from './services/holiday.service';
 import { ProjectAssignmentController } from './controllers/projectAssignment.controller';
 import { ProjectAssignmentService } from './services/projectAssignment.service';
 import { EvaluationService } from './services/evaluation.service';
+import { DocumentosController } from './controllers/documentos.controller';
+import { DocumentosService } from './services/documentos.service';
 
 @Global()
 @Module({
@@ -32,6 +34,7 @@ import { EvaluationService } from './services/evaluation.service';
     HolidayController,
     PersonController,
     ProjectAssignmentController,
+    DocumentosController,
   ],
   providers: [
     ...rrhhProviders,
@@ -41,6 +44,7 @@ import { EvaluationService } from './services/evaluation.service';
     HolidayService,
     PersonService,
     ProjectAssignmentService,
+    DocumentosService,
   ],
 
   exports: [],
