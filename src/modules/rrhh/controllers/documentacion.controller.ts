@@ -16,14 +16,11 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 //import { Uic } from '@uic/decorators';
 import { ResponseHttpModel } from '@shared/models';
 import { Auth } from '@auth/decorators';
-import { EvaluationService } from '../services/evaluation.service';
-import { CreateEvaluationDto } from '../dto/evaluation/create-evaluation.dto';
-import { FilterEvaluationDto } from '../dto/evaluation/filter-evaluation.dto';
-import { UpdateEvaluationDto } from '../dto/evaluation/update-evaluation.dto';
-import { EvaluationEntity } from '../entities/evaluation.entity';
 import { DocumentacionService } from '../services/documentacion.service';
 import { CreateDocumentacionDto } from '../dto/documentacion/create-documentacion.dto';
 import { FilterDocumentacionDto } from '../dto/documentacion/filter-documentacion.dto';
+import { UpdateDocumentacionDto } from '../dto/documentacion/update-documentacion.dto';
+import { DocumentacionEntity } from '../entities/documentacion.entity';
 
 @ApiTags('Documentacion')
 @Controller('documentacion')
@@ -39,8 +36,8 @@ export class DocumentacionController {
     const serviceResponse = await this.documentacionService.create(payload);
     return {
       data: serviceResponse.data,
-      message: 'Documento creado correcto',
-      title: 'Creado',
+      message: 'Documento creado',
+      title: 'Documento',
     };
   }
 
@@ -59,18 +56,18 @@ export class DocumentacionController {
   }
 
   /*}@ApiOperation({ summary: 'Events for sidebar' })
-        @Get('sidebar')
-        @HttpCode(HttpStatus.OK)
-        async getEventsForSidebar(): Promise<ResponseHttpModel> {
-          const serviceResponse = await this.eventsService.getEventsForSidebar();
-      
-          return {
-            data: serviceResponse.data,
-            pagination: serviceResponse.pagination,
-            message: `Catalogue for Sidebar`,
-            title: `Catalogue for Sidebar`,
-          };
-        }*/
+      @Get('sidebar')
+      @HttpCode(HttpStatus.OK)
+      async getEventsForSidebar(): Promise<ResponseHttpModel> {
+        const serviceResponse = await this.eventsService.getEventsForSidebar();
+    
+        return {
+          data: serviceResponse.data,
+          pagination: serviceResponse.pagination,
+          message: `Catalogue for Sidebar`,
+          title: `Catalogue for Sidebar`,
+        };
+      }*/
 
   @ApiOperation({ summary: 'Find All' })
   @Get()
@@ -110,14 +107,14 @@ export class DocumentacionController {
   @HttpCode(HttpStatus.CREATED)
   async update(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() payload: UpdateEvaluationDto,
+    @Body() payload: UpdateDocumentacionDto,
   ): Promise<ResponseHttpModel> {
     const serviceResponse = await this.documentacionService.update(id, payload);
 
     return {
       data: serviceResponse.data,
-      message: `Evento actualizado ${id}`,
-      title: `Actualizado`,
+      message: `Se actualizo la nota`,
+      title: `Revisión`,
     };
   }
 
@@ -142,7 +139,7 @@ export class DocumentacionController {
   @Patch('remove-all')
   @HttpCode(HttpStatus.CREATED)
   async removeAll(
-    @Body() payload: EvaluationEntity[],
+    @Body() payload: DocumentacionEntity[],
   ): Promise<ResponseHttpModel> {
     const serviceResponse = await this.documentacionService.removeAll(payload);
 
