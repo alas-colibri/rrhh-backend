@@ -150,7 +150,7 @@ export class DocumentosController {
 
     return {
       data: serviceResponse.data,
-      message: `Documentis eliminados`,
+      message: `Documentos eliminados`,
       title: `Eliminado`,
     };
   }
