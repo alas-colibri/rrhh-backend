@@ -28,7 +28,7 @@ import { DocumentosEntity } from '../entities/documentos.entity';
 import { DocumentosService } from '../services/documentos.service';
 
 @ApiTags('Documentos')
-@Controller('documento')
+@Controller('documentos')
 export class DocumentosController {
   constructor(private documentosService: DocumentosService) {}
   @ApiOperation({ summary: 'Create One' })
@@ -41,8 +41,8 @@ export class DocumentosController {
     const serviceResponse = await this.documentosService.create(payload);
     return {
       data: serviceResponse.data,
-      message: 'Evaluación creada',
-      title: 'Evaluación',
+      message: 'Documento creada',
+      title: 'Documento',
     };
   }
 
@@ -118,7 +118,7 @@ export class DocumentosController {
 
     return {
       data: serviceResponse.data,
-      message: `Se actualizo la nota`,
+      message: `Se actualizo el avance`,
       title: `Revisión`,
     };
   }
@@ -134,7 +134,7 @@ export class DocumentosController {
 
     return {
       data: serviceResponse.data,
-      message: `Proyecto eliminado ${id}`,
+      message: `Documenti eliminado ${id}`,
       title: `Eliminado`,
     };
   }
@@ -150,7 +150,7 @@ export class DocumentosController {
 
     return {
       data: serviceResponse.data,
-      message: `Proyectos eliminados`,
+      message: `Documentis eliminados`,
       title: `Eliminado`,
     };
   }
