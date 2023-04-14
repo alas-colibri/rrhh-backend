@@ -23,3 +23,10 @@ export * from './holiday/create-holiday.dto';
 export * from './holiday/filter-holiday.dto';
 export * from './holiday/read-holiday.dto';
 export * from './holiday/update-holiday.dto';
+
+//documentos
+export * from './documentos/base-documentos.dto';
+export * from './documentos/create-documentos.dto';
+export * from './documentos/filter-documentos.dto';
+export * from './documentos/read-documentos.dto';
+export * from './documentos/update-documentos.dto';
