@@ -7,6 +7,7 @@ import {
   DeleteDateColumn,
   OneToMany,
 } from 'typeorm';
+import { DocumentosEntity } from './documentos.entity';
 import { EvaluationEntity } from './evaluation.entity';
 import { ProjectAssignmentEntity } from './projectAssignment.entity';
 @Entity('person', { schema: 'uic' })
@@ -55,6 +56,9 @@ export class PersonEntity {
 
   @OneToMany(() => ProjectAssignmentEntity, (evaluation) => evaluation.person)
   name: EvaluationEntity;
+
+  @OneToMany(() => ProjectAssignmentEntity, (document) => document.person)
+  user: DocumentosEntity;
 
   //Fields
   @Column('varchar', {

@@ -121,6 +121,7 @@ export class ProyectService {
       where = [];
       where.push({ nameProyect: ILike(`%${search}%`) });
       where.push({ descripcionProyect: ILike(`%${search}%`) });
+      //where.push({ isEnable: ILike(`%${search}%`) });
     }
     const response = await this.repository.findAndCount({
       where,

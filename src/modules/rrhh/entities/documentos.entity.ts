@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { PersonEntity } from './person.entity';
 import { ProjectAssignmentEntity } from './projectAssignment.entity';
-@Entity('evaluations', { schema: 'uic' })
+@Entity('documents', { schema: 'uic' })
 export class DocumentosEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -36,79 +36,38 @@ export class DocumentosEntity {
   })
   deletedAt: Date;
   ///Fk
-  @ManyToOne(() => PersonEntity, (name) => name.name)
-  @JoinColumn({ name: 'name_id' })
-  name: PersonEntity;
+  @ManyToOne(() => PersonEntity, (user) => user.user)
+  @JoinColumn({ name: 'user_id' })
+  user: PersonEntity;
   //Fields
-  @Column('varchar', {
-    name: 'question1',
-    comment: 'Resultados de la evaluación',
-  })
-  question1: string;
 
-  @Column('varchar', {
-    name: 'question2',
-    comment: 'Resultados de la evaluación',
-  })
-  question2: string;
-
-  @Column('varchar', {
-    name: 'question3',
-    comment: 'Resultados de la evaluación',
-  })
-  question3: string;
-
-  @Column('varchar', {
-    name: 'question4',
-    comment: 'Resultados de la evaluación',
-  })
-  question4: string;
-
-  @Column('varchar', {
-    name: 'question5',
-    comment: 'Resultados de la evaluación',
-  })
-  question5: string;
-
-  @Column('varchar', {
+  @Column('boolean', {
     name: 'note1',
     comment: 'Resultados de la evaluación',
   })
-  note1: string;
+  note1: boolean;
 
-  @Column('varchar', {
+  @Column('boolean', {
     name: 'note2',
     comment: 'Resultados de la evaluación',
   })
-  note2: string;
+  note2: boolean;
 
-  @Column('varchar', {
+  @Column('boolean', {
     name: 'note3',
     comment: 'Resultados de la evaluación',
   })
-  note3: string;
+  note3: boolean;
 
-  @Column('varchar', {
+  @Column('boolean', {
     name: 'note4',
     comment: 'Resultados de la evaluación',
   })
-  note4: string;
+  note4: boolean;
 
-  @Column('varchar', {
+  @Column('boolean', {
     name: 'note5',
     comment: 'Resultados de la evaluación',
   })
-  note5: string;
-
-  @Column('varchar', {
-    name: 'observation',
-    comment: 'Resultados de la evaluación',
-  })
-  observation: string;
-
-  @Column('varchar', {
-    name: 'noteF',
-    comment: 'Resultados de la evaluación',
-  })
-  noteF: string;
+  note5: boolean;
 }

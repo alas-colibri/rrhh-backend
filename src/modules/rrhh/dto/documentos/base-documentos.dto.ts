@@ -1,55 +1,32 @@
-import { Allow, IsNotEmpty, IsString } from 'class-validator';
-import { isNotEmptyValidationOptions } from '@shared/validation';
+import { Allow, IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import {
+  isBooleanValidationOptions,
+  isNotEmptyValidationOptions,
+} from '@shared/validation';
 import { ProjectAssignmentEntity } from '../../entities/projectAssignment.entity';
 import { PersonEntity } from '../../entities/person.entity';
 
 export class BaseDocumentosDto {
   @Allow()
-  readonly name: PersonEntity;
+  readonly user: PersonEntity;
 
   @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsString()
-  readonly note1: string;
+  @IsBoolean(isBooleanValidationOptions())
+  readonly note1: boolean;
 
   @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsString()
-  readonly note2: string;
+  @IsBoolean(isBooleanValidationOptions())
+  readonly note2: boolean;
 
   @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsString()
-  readonly note3: string;
+  @IsBoolean(isBooleanValidationOptions())
+  readonly note3: boolean;
 
   @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsString()
-  readonly note4: string;
+  @IsBoolean(isBooleanValidationOptions())
+  readonly note4: boolean;
 
   @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsString()
-  readonly note5: string;
-
-  @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsString()
-  readonly question1: string;
-
-  @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsString()
-  readonly question2: string;
-
-  @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsString()
-  readonly question3: string;
-
-  @IsString()
-  readonly question4: string;
-
-  @IsString()
-  readonly question5: string;
-
-  @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsString()
-  readonly observation: string;
-
-  @IsNotEmpty(isNotEmptyValidationOptions())
-  @IsString()
-  readonly noteF: string;
+  @IsBoolean(isBooleanValidationOptions())
+  readonly note5: boolean;
 }
