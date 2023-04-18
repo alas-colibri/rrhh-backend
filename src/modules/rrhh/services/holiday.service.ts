@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
-import { Repository, FindOptionsWhere } from 'typeorm';
+import { Repository, FindOptionsWhere, ILike } from 'typeorm';
 import { ServiceResponseHttpModel } from '@shared/models';
 import { RepositoryEnum } from '@shared/enums';
 import { PaginationDto } from '@core/dto';
@@ -26,7 +26,10 @@ export class HolidayService {
   }
 
   async catalogue(): Promise<ServiceResponseHttpModel> {
-    const response = await this.repository.findAndCount({ take: 1000 });
+    const response = await this.repository.findAndCount({
+      relations: { person: true },
+      take: 1000,
+    });
 
     return {
       data: response[0],
@@ -50,7 +53,7 @@ export class HolidayService {
     //All
     const response = await this.repository.findAndCount({
       relations: {
-        name: true,
+        person: true,
       },
       order: { updatedAt: 'DESC' },
     });
@@ -81,7 +84,7 @@ export class HolidayService {
     const holiday = await this.repository.findOne({
       where: { id },
       relations: {
-        name: true,
+        person: true,
       },
     });
 
@@ -138,12 +141,12 @@ export class HolidayService {
       search = search.trim();
       page = 0;
       where = [];
-      //where.push({ catalogue: ILike(`%${search}%`) });
+      where.push({ person: ILike(`%${search}%`) });
     }
     const response = await this.repository.findAndCount({
       where,
       relations: {
-        name: true,
+        person: true,
       },
       take: limit,
       skip: PaginationDto.getOffset(limit, page),

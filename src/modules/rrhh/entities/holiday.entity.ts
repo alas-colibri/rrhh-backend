@@ -9,6 +9,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { ProjectAssignmentEntity } from './projectAssignment.entity';
+import { PersonEntity } from './person.entity';
 @Entity('holidays', { schema: 'uic' })
 export class HolidayEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -35,8 +36,9 @@ export class HolidayEntity {
   })
   deletedAt: Date;
   //forkey
-  @ManyToOne(() => ProjectAssignmentEntity, (name) => name.holiday)
-  @JoinColumn({ name: 'name_id' })
+  @ManyToOne(() => PersonEntity, (person) => person.person)
+  @JoinColumn({ name: 'person_id' })
+  person: ProjectAssignmentEntity;
   name: HolidayEntity;
   //Fields
   @Column('timestamp', {
@@ -56,4 +58,10 @@ export class HolidayEntity {
     comment: 'Tipo de Vacacion',
   })
   typeHoliday: string;
+
+  @Column('varchar', {
+    name: 'observation_holiday',
+    comment: 'observacion',
+  })
+  observation: string;
 }

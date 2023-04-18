@@ -7,7 +7,7 @@ export class ReadHolidayDto extends BaseHolidayDto {
   readonly id;
 
   @Expose()
-  readonly name;
+  readonly person;
 
   @Expose()
   readonly startDate;
@@ -17,4 +17,7 @@ export class ReadHolidayDto extends BaseHolidayDto {
 
   @Expose()
   readonly typeHoliday;
+
+  @Expose()
+  readonly observation;
 }

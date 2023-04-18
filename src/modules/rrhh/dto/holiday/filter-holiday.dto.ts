@@ -3,5 +3,5 @@ import { IsOptional } from 'class-validator';
 
 export class FilterHolidayDto extends PaginationDto {
   @IsOptional()
-  readonly name?: string;
+  readonly person?: string;
 }

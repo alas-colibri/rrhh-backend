@@ -9,10 +9,12 @@ import {
 } from 'class-validator';
 import { isNotEmptyValidationOptions } from '@shared/validation';
 import { ProjectAssignmentEntity } from '../../entities/projectAssignment.entity';
+import { PersonEntity } from '../../entities/person.entity';
 
 export class BaseHolidayDto {
   @Allow()
-  readonly name: ProjectAssignmentEntity;
+  readonly person: PersonEntity;
+
   @IsNotEmpty(isNotEmptyValidationOptions())
   @IsDate()
   readonly endDate: Date;
@@ -24,4 +26,8 @@ export class BaseHolidayDto {
   @IsNotEmpty(isNotEmptyValidationOptions())
   @IsString()
   readonly typeHoliday: string;
+
+  @IsNotEmpty(isNotEmptyValidationOptions())
+  @IsString()
+  readonly observation: string;
 }
