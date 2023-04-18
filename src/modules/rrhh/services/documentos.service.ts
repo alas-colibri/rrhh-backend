@@ -58,7 +58,7 @@ export class DocumentosService {
 
     //All
     const response = await this.repository.findAndCount({
-      relations: ['name'],
+      relations: ['user'],
       order: { updatedAt: 'DESC' },
     });
 
@@ -71,7 +71,7 @@ export class DocumentosService {
   async findOne(id: string): Promise<ServiceResponseHttpModel> {
     const documentos = await this.repository.findOne({
       where: { id },
-      relations: { name: true },
+      relations: { user: true },
     });
 
     if (!documentos) {
@@ -129,13 +129,11 @@ export class DocumentosService {
       search = search.trim();
       page = 0;
       where = [];
-      where.push({ name: ILike(`%${search}%`) });
-      where.push({ observation: ILike(`%${search}%`) });
-      where.push({ noteF: ILike(`%${search}%`) });
+      where.push({ user: ILike(`%${search}%`) });
     }
     const response = await this.repository.findAndCount({
       where,
-      relations: { name: true },
+      relations: { user: true },
       take: limit,
       skip: PaginationDto.getOffset(limit, page),
       order: {

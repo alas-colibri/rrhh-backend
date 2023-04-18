@@ -4,4 +4,7 @@ import { IsNumber, IsOptional, IsUUID } from 'class-validator';
 export class FilterProyectDto extends PaginationDto {
   @IsOptional()
   readonly name?: string;
+
+  @IsOptional()
+  readonly descripcionProyect?: string;
 }

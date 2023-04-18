@@ -70,6 +70,12 @@ export class PersonService {
       where = [];
       where.push({ names: ILike(`%${search}%`) });
       where.push({ lastNames: ILike(`%${search}%`) });
+      where.push({ identificationCode: ILike(`%${search}%`) });
+      where.push({ civilStatus: ILike(`%${search}%`) });
+      where.push({ gender: ILike(`%${search}%`) });
+      where.push({ profession: ILike(`%${search}%`) });
+      where.push({ city: ILike(`%${search}%`) });
+      where.push({ typeContract: ILike(`%${search}%`) });
     }
     const response = await this.repository.findAndCount({
       where,
